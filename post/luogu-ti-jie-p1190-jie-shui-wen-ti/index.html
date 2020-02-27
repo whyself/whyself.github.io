@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>综合性学习——新型冠状病毒肺炎探究 | whyself的博客</title>
+<title>luogu 题解 P1190 【接水问题】 | whyself的博客</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -24,11 +24,18 @@
 
 
 
-    <meta name="description" content="一、疫情发展时间线（综合人民网，新京报网整理）
-• 2019年12月30日 武汉市卫健委发布《关于做好不明原因肺炎救治工作的紧急通知》
-• 2020年1月1日 华南海鲜市场休市
-• 2020年1月8日 国家卫健委组织力量初步确认新型冠状病毒..." />
-    <meta name="keywords" content="school" />
+    <meta name="description" content="优先队列
+首先，阐述一下发题解的原因：
+虽然有跟我用同种思路的题解，
+但是我看不懂……（？？）
+
+进入正题，
+我们知道题意说是一个人打完水后按序号接上打；
+那么我们也要尊重一下模拟的核心思想：
+模拟
+当然优先队列的好处就是，
+它可以告诉你：..." />
+    <meta name="keywords" content="题解" />
   </head>
   <body>
     <div id="app" class="main">
@@ -99,44 +106,85 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">综合性学习——新型冠状病毒肺炎探究</h2>
-            <div class="post-date">2020-02-27th-9-59-49</div>
+            <h2 class="post-title">luogu 题解 P1190 【接水问题】</h2>
+            <div class="post-date">2020-02-27th-13-45-58</div>
             
             <div class="post-content" v-pre>
-              <h3 id="一-疫情发展时间线综合人民网新京报网整理">一、疫情发展时间线（综合人民网，新京报网整理）</h3>
-<p>• 2019年12月30日 武汉市卫健委发布《关于做好不明原因肺炎救治工作的紧急通知》</p>
-<p>• 2020年1月1日 华南海鲜市场休市</p>
-<p>• 2020年1月8日 国家卫健委组织力量初步确认新型冠状病毒为此次疫情的病原</p>
-<p>• 2020年1月19日 广东确诊全国首例输入性病例</p>
-<p>• 2020年1月21日 新增全国十省确诊首例病例</p>
-<p>• 2020年1月22日 新增全国十一省与两个特别行政区确诊首例病例</p>
-<p>• 2020年1月23日 武汉封城，开建火神山医院</p>
-<p>• 2020年1月24日 发现“不典型”病例</p>
-<p>• 2020年1月27日 李克强受总书记委托到武汉</p>
-<p>• 2020年2月2日 火神山医院交付</p>
-<p>• 2020年2月5日 疫情达到迄今最高点</p>
-<p>• 2020年2月7日 李文亮医生去世</p>
-<p>• 2020年2月8日 雷神山医院交付</p>
-<p>• 2020年2月14日 武汉新增确诊和疑似病例在2月13日之后步入下降趋势</p>
-<p>• 2020年2月15日 部分疫苗进入动物实验阶段</p>
-<p>• 2020年2月20日 湖北省新增确诊数少于武汉</p>
-<h3 id="二-全国疫情形势表1月26日至2月25日来源于百度">二、全国疫情形势表（1月26日至2月25日来源于百度）</h3>
-<figure data-type="image" tabindex="1"><img src="https://s2.ax1x.com/2020/02/27/3dA1w8.png" alt="" loading="lazy"></figure>
-<h3 id="三-探究结果">三、探究结果</h3>
-<p>1、非湖北地区，疫情形势平缓无大爆发现象。</p>
-<p>2、总体疫情在雷神山医院交付后回落，基本可以判断几乎所有的防疫工作在2月14日得到部署。</p>
-<p>3、在确证病例到达最高点后，迅速的回落足以看出我国防疫战略十分有效的控制住了疫情。</p>
+              <h1 id="优先队列">优先队列</h1>
+<p>首先，阐述一下发题解的原因：</p>
+<p>虽然有跟我用同种思路的题解，</p>
+<p>但是我看不懂……（？？）</p>
+<hr>
+<p>进入正题，</p>
+<p>我们知道题意说是一个人打完水后按序号接上打；</p>
+<p>那么我们也要尊重一下模拟的核心思想：</p>
+<h1 id="模拟">模拟</h1>
+<p>当然优先队列的好处就是，</p>
+<p>它可以告诉你：当前时间节点，剩余打水量最少的人</p>
+<p>剩余打水量为零的肯定在最前面</p>
+<p>如果剩余打水量为零</p>
+<p>就可以换人了</p>
+<p>代码实现：</p>
+<pre><code class="language-cpp">while(!q.empty()&amp;&amp;q.top()==t)//empty()是判断队列是否为空，top（）是访问剩余打水量最少的人的编号
+{
+	q.pop();\\弹出已装满水的人
+	if(num&lt;n) q.push(w[++num]+t);//推入下一个编号的人
+}
+</code></pre>
+<p>当然这里要注意！！！</p>
+<p>一定要记得在推入的人的水的需求量上加上当前时间；</p>
+<p>因为我们比较的是它的值与当前时间</p>
+<p>为了不再加一个记录它入队的时间的变量</p>
+<p>所以我们将它所需求的水量加上入队的时间再入队</p>
+<p>下面是完整代码：</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+priority_queue&lt;int,vector&lt;int&gt;,greater&lt;int&gt; &gt; q;//将默认优先级从大到小定义为总时间短的优先
+int n,m,w[10086],t,num;
+int main()
+{
+	scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+	for(int i=1;i&lt;=n;i++)
+	{
+		scanf(&quot;%d&quot;,&amp;w[i]);
+		if(i&lt;=m) 
+			q.push(w[i]);
+	}
+	num=min(n,m);//坑点！一开始被推入的个数要么不够挤满水龙头（n）要么挤满了水龙头（m），等同于在if语句中加num++
+	while(!q.empty())
+	{
+		t++;
+		while(!q.empty()&amp;&amp;q.top()==t)
+		{
+			q.pop();
+			if(num&lt;n) q.push(w[++num]+t);
+		}
+	}
+	printf(&quot;%d\n&quot;,t);
+	return 0;
+}
+
+</code></pre>
 
             </div>
             
               <div class="tag-container">
                 
-                  <a href="https://whyself.github.io/tag/-NrpPFA3p/" class="tag">
-                    school
+                  <a href="https://whyself.github.io/tag/Z9-eRQOpj/" class="tag">
+                    题解
                   </a>
                 
               </div>
             
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://whyself.github.io/post/luogu-ti-jie-p1725-qi-lu-nuo/">
+                  <h3 class="post-title">
+                    luogu 题解 P1725 【琪露诺】
+                  </h3>
+                </a>
+              </div>
             
 
             
