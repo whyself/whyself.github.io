@@ -2,13 +2,80 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://whyself.github.io</id>
     <title>whyself的博客</title>
-    <updated>2020-02-26T16:35:25.973Z</updated>
+    <updated>2020-02-27T00:36:26.498Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://whyself.github.io"/>
     <link rel="self" href="https://whyself.github.io/atom.xml"/>
     <logo>https://whyself.github.io/images/avatar.png</logo>
     <icon>https://whyself.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, whyself的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[打卡]]></title>
+        <id>https://whyself.github.io/post/da-qia/</id>
+        <link href="https://whyself.github.io/post/da-qia/">
+        </link>
+        <updated>2020-02-26T16:36:47.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="文化课">文化课：</h3>
+<p>2020/2/27</p>
+<h3 id="信奥">信奥：</h3>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[梦]]></title>
+        <id>https://whyself.github.io/post/meng/</id>
+        <link href="https://whyself.github.io/post/meng/">
+        </link>
+        <updated>2020-02-26T16:36:47.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>从前在一个美丽而又悠远的地方，有一个打卡圣地，一个<s>白胡子老头</s>告诉 why ：只要你每月坚持打卡，梦想他会实现的……</strong></p>
+<p>相信自己，坚持到底。</p>
+<p><strong>先得文化课，然后才有信奥。</strong></p>
+<p>成功的两个变量：天赋与努力。</p>
+<p><strong>晚上想路千万条，早晨还是走原路</strong></p>
+<hr>
+<h2 id="打卡">打卡</h2>
+<h4 id="每月打板">每月打板：</h4>
+<p>坚持！</p>
+<ul>
+<li><a href="https://www.luogu.com.cn/problem/P3373">线段树2</a></li>
+<li><a href="https://www.luogu.com.cn/problem/P3366">最小生成树</a></li>
+<li><a href="https://www.luogu.com.cn/problem/P4779">单源最短路</a></li>
+</ul>
+<h4 id="巩固板子">巩固板子：</h4>
+<p>熟练掌握！</p>
+<ul>
+<li><a href="https://www.luogu.com.cn/problem/P3383">线性筛素数</a></li>
+<li><a href="https://www.luogu.com.cn/problem/P3370">字符串哈希</a></li>
+<li><a href="https://www.luogu.com.cn/problem/P3379">最近公共祖先（LCA）</a></li>
+<li><a href="https://www.luogu.com.cn/problem/P1226">快速幂||取余运算</a></li>
+</ul>
+<h4 id="新的板子">新的板子：</h4>
+<p>-报告！发现 tg 常考 bz ！-（是你自己想学吧）</p>
+<ul>
+<li><a href="https://www.luogu.com.cn/problem/P3373">线段树 2</a></li>
+<li><a href="http://115.236.49.52:83/problem/8819">BST</a></li>
+<li><a href="https://www.luogu.com.cn/problem/P3371">SPFA</a></li>
+</ul>
+<h2 id="动态">动态：</h2>
+<ul>
+<li><strong>2020/2/14 创建此贴</strong></li>
+</ul>
+<hr>
+<p><strong>2020/2/14</strong></p>
+<ul>
+<li>创建此贴</li>
+</ul>
+<p><strong>2020/2/15</strong></p>
+<ul>
+<li>ST表撤下</li>
+<li>学会单调队列</li>
+<li>巩固快速排序</li>
+</ul>
+<p><strong>2020/2/17</strong></p>
+<ul>
+<li>熟练掌握单调队列</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[test]]></title>
         <id>https://whyself.github.io/post/test/</id>
