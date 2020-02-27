@@ -975,6 +975,10 @@ td {
   font-weight: bold;
 }
 
+      .main {
+        max-width: 1300px;
+      }
+    
       .post-container .post .post-title {
         text-align: left;
       }
@@ -1000,7 +1004,11 @@ td {
         background: #868e96;
       }
     
+      body {
+        color: #212529;
+      }
+    
       a {
-        color: #5f3dc4;
+        color: #212529;
       }
     
