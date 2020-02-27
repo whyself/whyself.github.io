@@ -2007,6 +2007,8 @@ body {
     }
     .mist .site-title i {
       background: #FFF;
+    }.box-scale > #landlord {
+      transform: scale([0,1]);
     }.box-shadow-wrapper {
       box-shadow: none !important;
     }
