@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://whyself.github.io</id>
-    <title>why&apos;s blog</title>
-    <updated>2020-02-28T04:11:30.827Z</updated>
+    <title>whyself | blog</title>
+    <updated>2020-02-28T04:16:26.559Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://whyself.github.io"/>
     <link rel="self" href="https://whyself.github.io/atom.xml"/>
+    <subtitle>一个初中 OIer 的博客</subtitle>
     <logo>https://whyself.github.io/images/avatar.png</logo>
     <icon>https://whyself.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, why&apos;s blog</rights>
+    <rights>All rights reserved 2020, whyself | blog</rights>
     <entry>
         <title type="html"><![CDATA[luogu 题解 P1190 【接水问题】]]></title>
         <id>https://whyself.github.io/post/luogu-ti-jie-p1190-jie-shui-wen-ti/</id>
