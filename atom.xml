@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://whyself.github.io</id>
     <title>whyself | blog</title>
-    <updated>2020-03-02T00:59:26.800Z</updated>
+    <updated>2020-03-02T10:55:26.318Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://whyself.github.io"/>
     <link rel="self" href="https://whyself.github.io/atom.xml"/>
@@ -10,6 +10,15 @@
     <logo>https://whyself.github.io/images/avatar.png</logo>
     <icon>https://whyself.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, whyself | blog</rights>
+    <entry>
+        <title type="html"><![CDATA[填坑行动]]></title>
+        <id>https://whyself.github.io/post/tian-keng-xing-dong/</id>
+        <link href="https://whyself.github.io/post/tian-keng-xing-dong/">
+        </link>
+        <updated>2020-03-02T10:54:30.000Z</updated>
+        <content type="html"><![CDATA[<p>创建于：2020/3/2 18:55</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[关于如何求得二元分式方程的整数解]]></title>
         <id>https://whyself.github.io/post/guan-yu-ru-he-qiu-de-er-yuan-fen-shi-fang-cheng-de-zheng-shu-jie/</id>
