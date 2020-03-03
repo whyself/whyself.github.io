@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://whyself.github.io</id>
     <title>whyself | blog</title>
-    <updated>2020-03-03T00:09:19.196Z</updated>
+    <updated>2020-03-03T06:33:25.143Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://whyself.github.io"/>
     <link rel="self" href="https://whyself.github.io/atom.xml"/>
@@ -39,10 +39,10 @@ a_2 x+b_2 y=c_2.
         <content type="html"><![CDATA[<p>创建于2020/3/2 18:55</p>
 <hr>
 <ul>
-<li>BST 平衡树学会。</li>
-<li>BST 平衡树题解。</li>
-<li>KMP 题解。</li>
-<li>AC自动机学会。</li>
+<li>BST 平衡树学会。（2020/3/2）</li>
+<li>BST 平衡树题解。（2020/3/2）</li>
+<li>KMP 题解。（2020/3/2）</li>
+<li>AC自动机学会。（2020/3/2）</li>
 </ul>
 ]]></content>
     </entry>
