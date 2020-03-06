@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://whyself.github.io</id>
     <title>whyself | blog</title>
-    <updated>2020-03-05T04:52:54.713Z</updated>
+    <updated>2020-03-06T06:21:30.081Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://whyself.github.io"/>
     <link rel="self" href="https://whyself.github.io/atom.xml"/>
@@ -11,14 +11,196 @@
     <icon>https://whyself.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, whyself | blog</rights>
     <entry>
+        <title type="html"><![CDATA[luogu 题解 P2073 【送花】]]></title>
+        <id>https://whyself.github.io/post/luogu-ti-jie-p2073-song-hua/</id>
+        <link href="https://whyself.github.io/post/luogu-ti-jie-p2073-song-hua/">
+        </link>
+        <updated>2020-03-06T04:35:19.000Z</updated>
+        <summary type="html"><![CDATA[<h2 id="前铺">前铺：</h2>
+<p>刚学了普通平衡树想来蹭点经验，写着写着蒙了，来到题解区一看，为什么都是各种 STL 或变种的平衡树，让我这个只会普通平衡树的人一头雾水。待我用普通平衡树调了半天终于 AC 后，决定写篇普通平衡树的题解造福一下别人。</p>
+<p>PS：本篇题解适合刚学普通平衡树或没有思路的同学，如果你还不会普通平衡树，你可以用别的大佬的方法或出门左转 <a href="https://www.luogu.com.cn/problem/P3369">luogu P3369</a>。</p>
+]]></summary>
+        <content type="html"><![CDATA[<h2 id="前铺">前铺：</h2>
+<p>刚学了普通平衡树想来蹭点经验，写着写着蒙了，来到题解区一看，为什么都是各种 STL 或变种的平衡树，让我这个只会普通平衡树的人一头雾水。待我用普通平衡树调了半天终于 AC 后，决定写篇普通平衡树的题解造福一下别人。</p>
+<p>PS：本篇题解适合刚学普通平衡树或没有思路的同学，如果你还不会普通平衡树，你可以用别的大佬的方法或出门左转 <a href="https://www.luogu.com.cn/problem/P3369">luogu P3369</a>。</p>
+<!-- more -->
+<h2 id="思路">思路：</h2>
+<p>为什么要用平衡树？我们知道平衡树适用于一段序列的查找、排序、插入以及删除。我们可以将题面当中的每朵花看成是一个数，然后我们就知道了我们仅须支持插入和删除操作即可（不需要 size ），但删除的是当前的最大值或最小值所以我们需要插入数后，用平衡树进行当前花朵的价格的排序并找出最大值和最小值。</p>
+<h2 id="提示">提示：</h2>
+<p>如果你已经用平衡树写出代码，但调试不出来，你不妨可以看看以下几点提示：</p>
+<ul>
+<li>题面中 2 和 3 操作换了下位置。</li>
+<li>添加一朵花记得进行标记看是否有重复。</li>
+<li>删除一朵花时记得标记要重置。</li>
+<li>非递归的删除操作很不友好，<strong>建议</strong>改成递归。</li>
+</ul>
+<p>以上就是我在做题时遇到的一些坑，看看有没有中招的。</p>
+<h2 id="代码函数详解">代码函数详解：</h2>
+<h3 id="add-新建节点">add 新建节点：</h3>
+<p>在新建节点时，记得将求和的变量 <code>sum_c,sum_w</code> 加上对应值,以及进行标记已在花束中：</p>
+<pre><code class="language-cpp">int add(int w,int c)
+{
+	t[++tot].c=c,t[tot].w=w,sum_w+=w,sum_c+=c,vis[c]=1;
+	return tot; 
+}  
+</code></pre>
+<h3 id="del-删除操作">del 删除操作：</h3>
+<p>这题的重点就是删除操作，首先要明白如何在一颗平衡树中找到最大值和最小值，因为一颗平衡树也是一颗二叉排序树，所以它满足左孩子小于父亲，右孩子大于父亲的性质。那么<strong>最大值即为最有的节点，最小值即为最左的节点</strong>，然后直接像删除只有一个孩子的节点那样，让孩子节点替代父亲节点,再减去它的漂亮值与价格，重置标记。</p>
+<pre><code class="language-cpp">void del_min(int &amp;x)
+{
+	if(t[x].l)
+		del_min(t[x].l);//如果它还有比它小的左儿子，则找递归它的左子树
+	else 
+	{
+		sum_c-=t[x].c;
+		sum_w-=t[x].w;
+		vis[t[x].c]=0;
+	    x=t[x].r;
+	}
+}
+
+void del_max(int &amp;x)
+{
+	if(t[x].r)
+		del_max(t[x].r);//如果它还有比它大的右儿子，则找递归它的右子树
+	else 
+	{
+		sum_c-=t[x].c;
+		sum_w-=t[x].w;
+		vis[t[x].c]=0;
+		x=t[x].l;
+	}
+}
+</code></pre>
+<h2 id="完整代码">完整代码：</h2>
+<pre><code class="language-cpp">#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cstdlib&gt;
+using namespace std;
+
+const int N=1e5+86; 
+
+int n,tot,root,vis[1000001];
+int sum_w,sum_c;
+
+struct Treap
+{
+	Treap()
+	{
+		pri=rand()*rand()%20061124;
+		l=r=0;
+	}//构造函数
+	int l;
+	int r;
+	int pri;
+	int c;
+	int w;
+}t[N];
+
+int add(int w,int c)//新建节点
+{
+	t[++tot].c=c,t[tot].w=w,sum_w+=w,sum_c+=c,vis[c]=1;
+	return tot; 
+}
+
+void right_rorate(int &amp;x)//右旋
+{
+	int tmp=t[x].l;
+	t[x].l=t[tmp].r;
+	t[tmp].r=x;
+	x=tmp;
+}
+
+void left_rorate(int &amp;x)//左旋
+{
+	int tmp=t[x].r;
+	t[x].r=t[tmp].l;
+	t[tmp].l=x;
+	x=tmp;
+}
+
+void insert(int &amp;x,int w,int c)//插入操作
+{
+	if(x==0)
+	{
+		x=add(w,c);
+		return;
+	}
+	if(c&gt;=t[x].c)
+		insert(t[x].r,w,c);
+	else
+		insert(t[x].l,w,c);
+	if(t[x].r&amp;&amp;t[t[x].r].pri&lt;t[x].pri)
+		left_rorate(x);
+	if(t[x].l&amp;&amp;t[t[x].l].pri&lt;t[x].pri)
+		right_rorate(x);
+}
+
+void del_min(int &amp;x)//删除当前最小值
+{
+	if(t[x].l)
+		del_min(t[x].l);
+	else 
+	{
+		sum_c-=t[x].c;
+		sum_w-=t[x].w;
+		vis[t[x].c]=0;
+		x=t[x].r;
+	}
+}
+
+void del_max(int &amp;x)//删除当前最大值
+{
+	if(t[x].r)
+		del_max(t[x].r);
+	else 
+	{
+		sum_c-=t[x].c;
+		sum_w-=t[x].w;
+		vis[t[x].c]=0;
+		x=t[x].l;
+	}
+}
+
+int main()
+{
+	int opt;
+	while(scanf(&quot;%d&quot;,&amp;opt)==1)
+	{
+		if(opt==-1) break;
+		if(opt==1)
+		{
+			int w,c;
+			scanf(&quot;%d%d&quot;,&amp;w,&amp;c);
+			if(vis[c]) continue;//如果重复则跳过不插入
+			insert(root,w,c);
+		}
+		else if(opt==3)
+			del_min(root);
+		else if(opt==2)
+			del_max(root);
+	}            
+	printf(&quot;%d %d\n&quot;,sum_w,sum_c);
+	return 0;
+}
+</code></pre>
+<p>感谢大家阅读，希望能帮到大家！</p>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[关于本博客]]></title>
         <id>https://whyself.github.io/post/guan-yu-ben-bo-ke/</id>
         <link href="https://whyself.github.io/post/guan-yu-ben-bo-ke/">
         </link>
         <updated>2020-03-03T06:35:33.000Z</updated>
+        <summary type="html"><![CDATA[<p>创建于2020/3/3 14:36</p>
+<hr>
+<p>博主是一名信奥蒟蒻的初中生，此博客为主博客，但因为本博客极其不稳定，所以一些重要的文章博主会同步到<a href="https://www.luogu.com.cn/blog/10086-Backupfour/">luogu博客</a>上，但一切以本博客为主。</p>
+]]></summary>
         <content type="html"><![CDATA[<p>创建于2020/3/3 14:36</p>
 <hr>
 <p>博主是一名信奥蒟蒻的初中生，此博客为主博客，但因为本博客极其不稳定，所以一些重要的文章博主会同步到<a href="https://www.luogu.com.cn/blog/10086-Backupfour/">luogu博客</a>上，但一切以本博客为主。</p>
+<!-- more -->
 ]]></content>
     </entry>
     <entry>
