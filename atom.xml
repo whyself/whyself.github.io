@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://whyself.github.io</id>
     <title>whyself | blog</title>
-    <updated>2020-03-06T06:42:05.078Z</updated>
+    <updated>2020-03-06T09:12:56.779Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://whyself.github.io"/>
     <link rel="self" href="https://whyself.github.io/atom.xml"/>
@@ -10,6 +10,148 @@
     <logo>https://whyself.github.io/images/avatar.png</logo>
     <icon>https://whyself.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, whyself | blog</rights>
+    <entry>
+        <title type="html"><![CDATA[luogu 题解 P3871 【[TJOI2010]中位数】]]></title>
+        <id>https://whyself.github.io/post/luogu-ti-jie-p3871-tjoi2010zhong-wei-shu/</id>
+        <link href="https://whyself.github.io/post/luogu-ti-jie-p3871-tjoi2010zhong-wei-shu/">
+        </link>
+        <updated>2020-03-06T08:43:53.000Z</updated>
+        <summary type="html"><![CDATA[<h2 id="前铺">前铺</h2>
+<p>虽然刚学普通平衡树，但刷了这么多题后，发现用平衡树解的题目方法就一个字：<strong>套</strong>！如何套呢？我总结了些步骤：</p>
+<p>1、**分析：**看清题目找到题目所要求的的平衡树的哪个操作。</p>
+<p>2、**修改：**在模板上加以修改。</p>
+<p>今天我就拿这道题来实地演练一下。</p>
+<p>PS：如果你还不会普通平衡树，请出门左转 <a href="https://www.luogu.com.cn/problem/P3369">luogu P3369</a>。</p>
+]]></summary>
+        <content type="html"><![CDATA[<h2 id="前铺">前铺</h2>
+<p>虽然刚学普通平衡树，但刷了这么多题后，发现用平衡树解的题目方法就一个字：<strong>套</strong>！如何套呢？我总结了些步骤：</p>
+<p>1、**分析：**看清题目找到题目所要求的的平衡树的哪个操作。</p>
+<p>2、**修改：**在模板上加以修改。</p>
+<p>今天我就拿这道题来实地演练一下。</p>
+<p>PS：如果你还不会普通平衡树，请出门左转 <a href="https://www.luogu.com.cn/problem/P3369">luogu P3369</a>。</p>
+<!-- more -->
+<h2 id="分析">分析</h2>
+<p>首先，题目说有 add 添加一个整数，那么显然我们需要插入操作。在看到 mid 的从小到大，我们肯定要进行排序，然后题目让我们求中位数，和为中位数？</p>
+<blockquote>
+<p>中位数是指将一个序列按照从小到大排序后处在中间位置的数。（若序列长度为偶数，则指处在中间位置的两个数中较小的那个）</p>
+</blockquote>
+<p>说白了在代码里就是<strong>第 （序列长度+1）/2 个数</strong> 。那我们就需要求出排名为第 （序列长度+1）/2 个数输出即可。</p>
+<h2 id="修改">修改</h2>
+<p>对于板子来说并没有太多的修改只需保留<em>插入、排序、查询第 x 大的数</em>即可。</p>
+<h2 id="总结">总结</h2>
+<p>本题如果用平衡树解那重点也就只有将中位数这个概念转化成第 <code>(n+1)/2</code> 个大的数。</p>
+<h2 id="完整代码">完整代码</h2>
+<pre><code class="language-cpp">#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;cstdlib&gt;
+using namespace std;
+
+const int N=1e5+86+3e4;
+
+int n,m,tot,root;//tot即为当前序列长度
+
+struct Treap
+{
+	Treap()
+	{
+		pri=rand()*rand()%20061124;
+		l=r=0;
+	}//构造函数初始化
+	int l;
+	int r;
+	int pri;
+	int v;
+	int siz;
+}t[N];
+
+void up(int x)//维护节点个数
+{
+	t[x].siz=t[t[x].l].siz+t[t[x].r].siz+1;
+}
+
+void right_rorate(int &amp;x)//右旋
+{
+	int tmp=t[x].l;
+	t[x].l=t[tmp].r;
+	t[tmp].r=x;
+	t[tmp].siz=t[x].siz;
+	up(x);
+	x=tmp;
+ } 
+
+void left_rorate(int &amp;x)//左旋
+{
+	int tmp=t[x].r;
+	t[x].r=t[tmp].l;
+	t[tmp].l=x;
+	t[tmp].siz=t[x].siz;
+	up(x);
+	x=tmp;
+}
+
+int add(int v)//添加操作
+{
+	t[++tot].v=v;
+	t[tot].siz=1;
+	return tot;
+}
+
+void insert(int &amp;x,int v)//插入操作
+{
+	if(x==0)
+	{
+		x=add(v);
+		return;
+	}
+	t[x].siz++;
+	if(v&gt;=t[x].v)
+		insert(t[x].r,v);
+	else
+		insert(t[x].l,v);
+	if(t[x].l&amp;&amp;t[x].pri&gt;t[t[x].l].pri)
+		right_rorate(x);
+	if(t[x].r&amp;&amp;t[x].pri&gt;t[t[x].r].pri)
+		left_rorate(x);
+	up(x);	
+}
+
+int find(int x,int rnk)//查询操作
+{
+	if(rnk==t[t[x].r].siz+1)
+		return t[x].v;
+	if(rnk&gt;t[t[x].r].siz+1)
+		return find(t[x].l,rnk-t[t[x].r].siz-1);
+	return find(t[x].r,rnk);
+}
+
+int main()
+{
+	scanf(&quot;%d&quot;,&amp;n);
+	int a;
+	char s[3];
+	while(n--)
+	{
+		scanf(&quot;%d&quot;,&amp;a);
+		insert(root,a);
+	}
+	scanf(&quot;%d&quot;,&amp;m);
+	while(m--)
+	{
+		scanf(&quot;%s&quot;,s);
+		if(s[0]=='a')
+		{
+			scanf(&quot;%d&quot;,&amp;a);
+			insert(root,a);
+		}
+		else if(s[0]=='m')
+			printf(&quot;%d\n&quot;,find(root,(tot+1)/2));//转化中位数概念
+	}
+	return 0;
+}
+</code></pre>
+<p>希望对大家有所帮助！</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[luogu 题解 P2073 【送花】]]></title>
         <id>https://whyself.github.io/post/luogu-ti-jie-p2073-song-hua/</id>
