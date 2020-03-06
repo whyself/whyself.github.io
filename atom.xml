@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://whyself.github.io</id>
     <title>whyself | blog</title>
-    <updated>2020-03-06T06:21:30.081Z</updated>
+    <updated>2020-03-06T06:42:05.078Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://whyself.github.io"/>
     <link rel="self" href="https://whyself.github.io/atom.xml"/>
@@ -45,7 +45,8 @@
 }  
 </code></pre>
 <h3 id="del-删除操作">del 删除操作：</h3>
-<p>这题的重点就是删除操作，首先要明白如何在一颗平衡树中找到最大值和最小值，因为一颗平衡树也是一颗二叉排序树，所以它满足左孩子小于父亲，右孩子大于父亲的性质。那么<strong>最大值即为最有的节点，最小值即为最左的节点</strong>，然后直接像删除只有一个孩子的节点那样，让孩子节点替代父亲节点,再减去它的漂亮值与价格，重置标记。</p>
+<p>这题的重点就是删除操作，首先要明白如何在一颗平衡树中找到最大值和最小值，因为一颗平衡树也是一颗二叉排序树，所以它满足左孩子小于父亲，右孩子大于父亲的性质。那么<strong>最大值即为最有的节点，最小值即为最左的节点（见下图）</strong>，然后直接像删除只有一个孩子的节点那样，让孩子节点替代父亲节点,再减去它的漂亮值与价格，重置标记。</p>
+<figure data-type="image" tabindex="1"><img src="https://s2.ax1x.com/2020/03/06/3q32nJ.png" alt="" loading="lazy"></figure>
 <pre><code class="language-cpp">void del_min(int &amp;x)
 {
 	if(t[x].l)
