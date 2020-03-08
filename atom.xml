@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://whyself.github.io</id>
     <title>whyself | blog</title>
-    <updated>2020-03-08T12:15:50.127Z</updated>
+    <updated>2020-03-08T12:17:15.983Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://whyself.github.io"/>
     <link rel="self" href="https://whyself.github.io/atom.xml"/>
@@ -18,15 +18,15 @@
         <updated>2020-03-06T08:43:53.000Z</updated>
         <summary type="html"><![CDATA[<h2 id="前铺">前铺</h2>
 <p>虽然刚学普通平衡树，但刷了这么多题后，发现用平衡树解的题目方法就一个字：<strong>套</strong>！如何套呢？我总结了些步骤：</p>
-<p>1、**分析：**看清题目找到题目所要求的的平衡树的哪个操作。</p>
-<p>2、**修改：**在模板上加以修改。</p>
+<p>1、<strong>分析：</strong> 看清题目找到题目所要求的的平衡树的哪个操作。</p>
+<p>2、<strong>修改：</strong> 在模板上加以修改。</p>
 <p>今天我就拿这道题来实地演练一下。</p>
 <p>PS：如果你还不会普通平衡树，请出门左转 <a href="https://www.luogu.com.cn/problem/P3369">luogu P3369</a>。</p>
 ]]></summary>
         <content type="html"><![CDATA[<h2 id="前铺">前铺</h2>
 <p>虽然刚学普通平衡树，但刷了这么多题后，发现用平衡树解的题目方法就一个字：<strong>套</strong>！如何套呢？我总结了些步骤：</p>
-<p>1、**分析：**看清题目找到题目所要求的的平衡树的哪个操作。</p>
-<p>2、**修改：**在模板上加以修改。</p>
+<p>1、<strong>分析：</strong> 看清题目找到题目所要求的的平衡树的哪个操作。</p>
+<p>2、<strong>修改：</strong> 在模板上加以修改。</p>
 <p>今天我就拿这道题来实地演练一下。</p>
 <p>PS：如果你还不会普通平衡树，请出门左转 <a href="https://www.luogu.com.cn/problem/P3369">luogu P3369</a>。</p>
 <!-- more -->
