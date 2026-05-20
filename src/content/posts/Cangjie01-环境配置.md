@@ -58,7 +58,7 @@ source ~/.bashrc
 
 ```json
 "CangjieSdk.Option": "CJNative",
-"CangjieSdkPath.CJNativeBackend": "/opt/cangjie"
+"CangjieSdkPath.CJNativeBackend": "~/opt/cangjie"
 ```
 
 给插件调用
