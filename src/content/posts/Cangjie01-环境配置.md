@@ -23,7 +23,7 @@ sudo apt update
 sudo apt install -y binutils libc6-dev libc++-dev gcc g++ libstdc++6 openssl libssl3t64
 ```
 
-完成之后，我去官网下载了 [Cangjie 1.1.0-beta.25](Cangjie 1.1.0-beta.25)
+完成之后，我去官网下载了 Cangjie 1.1.0-beta.25
 
 下载之后一般可以解压到 `/home/<user_name>/opt`
 
@@ -46,7 +46,7 @@ cjpm -v
 要让以后每次开终端都自动生效，把这一行加到 ~/.bashrc 最后，然后立即重新读取并执行 Bash 配置文件：
 
 ```bash
-echo 'source /opt/cangjie/envsetup.sh' >> ~/.bashrc
+echo 'source ~/opt/cangjie/envsetup.sh' >> ~/.bashrc
 source ~/.bashrc
 ```
 
