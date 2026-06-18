@@ -21,7 +21,7 @@ export const GET: APIRoute = async ({ params }) => {
   const posts = filterPostsByMajorRoute(allPosts, route);
   const payload = posts.map((post) => ({
     title: post.data.listTitle ?? post.data.title,
-    href: `${base}posts/${post.slug}/`,
+    href: `${base}posts/${post.id}/`,
     listDate: post.data.listDate,
     wordCount: post.data.wordCount,
     excerpt: post.data.excerpt,
@@ -36,4 +36,3 @@ export const GET: APIRoute = async ({ params }) => {
     },
   });
 };
-

@@ -22,7 +22,7 @@ export const GET: APIRoute = async ({ site }) => {
   const posts = sortPostsByDateDesc(await getCollection('posts', ({ data }) => !data.draft));
   const totalPages = Math.max(1, Math.ceil(posts.length / PAGE_SIZE));
   const postEntries = posts.map((post) => ({
-    loc: urlFor(`${basePath}posts/${post.slug}/`),
+    loc: urlFor(`${basePath}posts/${post.id}/`),
     lastmod: post.data.publishDate.toISOString(),
   }));
 

@@ -41,9 +41,9 @@ export const GET: APIRoute = async ({ site }) => {
     posts.map(async (post) => {
       const title = escapeXml(post.data.listTitle ?? post.data.title);
       const description = escapeXml(post.data.excerpt ?? '');
-      const link = `${baseUrl}/posts/${post.slug}/`;
+      const link = `${baseUrl}/posts/${post.id}/`;
       const pubDate = new Date(post.data.publishDate).toUTCString();
-      const content = await markdownToHtml(post.body);
+      const content = await markdownToHtml(post.body ?? '');
 
       return `<item>
   <title>${title}</title>

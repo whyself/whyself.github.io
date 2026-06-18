@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import { unified } from '@astrojs/markdown-remark';
 import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
 import rehypeKatex from 'rehype-katex';
@@ -10,8 +11,10 @@ export default defineConfig({
   site,
   base,
   markdown: {
-    remarkPlugins: [remarkMath, remarkGfm],
-    rehypePlugins: [rehypeKatex],
+    processor: unified({
+      remarkPlugins: [remarkMath, remarkGfm],
+      rehypePlugins: [rehypeKatex],
+    }),
     shikiConfig: {
       themes: {
         light: 'github-light',

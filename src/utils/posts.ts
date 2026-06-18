@@ -22,7 +22,7 @@ export function sortPostsByDateDesc(posts: PostEntry[]): PostEntry[] {
 export function buildSearchItems(posts: PostEntry[], base: string): SearchItem[] {
   return sortPostsByDateDesc(posts).map((entry) => ({
     title: entry.data.listTitle ?? entry.data.title,
-    href: `${base}posts/${entry.slug}/`,
+    href: `${base}posts/${entry.id}/`,
     tags: entry.data.tags ?? [],
     excerpt: entry.data.excerpt ?? '',
   }));

@@ -1,12 +1,15 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
 const posts = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/posts' }),
   schema: z.object({
     title: z.string(),
     listTitle: z.string().optional(),
     subtitle: z.string().optional(),
     excerpt: z.string(),
-    publishDate: z.date(),
+    publishDate: z.coerce.date(),
     listDate: z.string(),
     articleDate: z.string().optional(),
     wordCount: z.string(),
@@ -30,6 +33,7 @@ const posts = defineCollection({
 });
 
 const pages = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/pages' }),
   schema: z.object({
     title: z.string(),
     subtitle: z.string().optional(),

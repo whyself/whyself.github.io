@@ -7,20 +7,22 @@
     "dev": "astro dev --host 127.0.0.1 --port 4321",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro sync && tsc --noEmit"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.8",
-    "astro": "^5.14.0",
-    "autoprefixer": "^10.4.27",
-    "postcss": "^8.5.8",
-    "tailwindcss": "^3.4.17",
+    "@astrojs/markdown-remark": "^7.2.0",
+    "astro": "^6.4.8",
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^3.4.19",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@astrojs/netlify": "^6.6.5",
     "rehype-katex": "^7.0.1",
     "remark-gfm": "^4.0.1",
     "remark-math": "^6.0.0"
+  },
+  "overrides": {
+    "esbuild": "0.28.1"
   }
 }

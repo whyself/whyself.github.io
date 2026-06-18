@@ -86,7 +86,7 @@ const resolveHref = (href: string) => {
 </nav>
 <div class="space-y-16" id="post-list-top">
 {posts.map((post) => {
-  const detailHref = `${base}posts/${post.slug}/`;
+  const detailHref = `${base}posts/${post.id}/`;
   const title = post.data.listTitle ?? post.data.title;
   const tagData = post.data.tags.join("||");
   return (

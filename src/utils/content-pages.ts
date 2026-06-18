@@ -26,7 +26,7 @@ export async function buildContentPageData({ base, siteOrigin, config }: BuildCo
 }> {
   const posts = await getPublishedPosts();
   const searchItems = buildSearchItems(posts, base);
-  const pageEntry = (await getCollection('pages', ({ data }) => !data.draft)).find((entry) => entry.slug === config.slug);
+  const pageEntry = (await getCollection('pages', ({ data }) => !data.draft)).find((entry) => entry.id === config.slug);
   if (!pageEntry) throw new Error(`Missing content file: src/content/pages/${config.slug}.md`);
   const { Content } = await render(pageEntry);
 
