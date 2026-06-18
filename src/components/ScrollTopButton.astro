@@ -36,6 +36,8 @@ const { threshold = 320, appearOffset = 180 } = Astro.props;
     const threshold = Number(button.getAttribute("data-threshold") || "320");
     const appearOffset = Number(button.getAttribute("data-appear-offset") || "180");
     const initialOffsetRatio = 0.22;
+    const scrollDuration = 680;
+    let activeAnimation = 0;
 
     const getEntryScrollTop = () => {
       const contentStart = document.querySelector("[data-content-start]");
@@ -50,8 +52,35 @@ const { threshold = 320, appearOffset = 180 } = Astro.props;
       button.classList.toggle("is-visible", window.scrollY > showAt);
     };
 
+    const animateScrollTo = (targetTop) => {
+      const startTop = window.scrollY;
+      const delta = targetTop - startTop;
+      activeAnimation += 1;
+      const animationId = activeAnimation;
+
+      if (Math.abs(delta) <= 2) {
+        window.scrollTo({ top: targetTop, behavior: "auto" });
+        return;
+      }
+
+      const startTs = performance.now();
+      const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+      const tick = (now) => {
+        if (animationId !== activeAnimation) return;
+        const progress = Math.min(1, (now - startTs) / scrollDuration);
+        const eased = easeInOutCubic(progress);
+        window.scrollTo({ top: startTop + delta * eased, behavior: "auto" });
+        if (progress < 1) {
+          window.requestAnimationFrame(tick);
+          return;
+        }
+        window.scrollTo({ top: targetTop, behavior: "auto" });
+      };
+      window.requestAnimationFrame(tick);
+    };
+
     button.addEventListener("click", () => {
-      window.scrollTo({ top: getEntryScrollTop(), behavior: "smooth" });
+      animateScrollTo(getEntryScrollTop());
     });
 
     window.addEventListener("scroll", syncVisibility, { passive: true });

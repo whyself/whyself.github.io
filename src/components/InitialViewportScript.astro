@@ -4,6 +4,7 @@ interface Props {
   offsetRatio?: number;
   behavior?: 'auto' | 'smooth';
   delayMs?: number;
+  durationMs?: number;
 }
 
 const {
@@ -11,21 +12,22 @@ const {
   offsetRatio = 0.22,
   behavior = 'smooth',
   delayMs = 120,
+  durationMs = 760,
 } = Astro.props as Props;
 
 const script = `(() => {
   const contentStart = document.querySelector(${JSON.stringify(selector)});
   if (!contentStart) return;
-  let hasScrolled = false;
+  let hasStartedInitialScroll = false;
 
   const run = () => {
-    if (hasScrolled) return;
+    if (hasStartedInitialScroll) return;
 
     const hash = window.location.hash ? decodeURIComponent(window.location.hash.slice(1)) : "";
     if (hash) {
       const hashTarget = document.getElementById(hash);
       if (hashTarget) {
-        hasScrolled = true;
+        hasStartedInitialScroll = true;
         hashTarget.scrollIntoView({ block: "start", behavior: "auto" });
         return;
       }
@@ -34,13 +36,33 @@ const script = `(() => {
     const contentTop = contentStart.getBoundingClientRect().top + window.scrollY;
     const targetTop = Math.max(0, Math.round(contentTop - window.innerHeight * ${offsetRatio}));
     if (Math.abs(window.scrollY - targetTop) <= 2) {
-      hasScrolled = true;
+      hasStartedInitialScroll = true;
       return;
     }
-    const prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const resolvedBehavior = prefersReducedMotion ? "auto" : ${JSON.stringify(behavior)};
-    hasScrolled = true;
-    window.scrollTo({ top: targetTop, behavior: resolvedBehavior });
+    const resolvedBehavior = ${JSON.stringify(behavior)};
+    hasStartedInitialScroll = true;
+    if (resolvedBehavior !== "smooth") {
+      window.scrollTo({ top: targetTop, behavior: "auto" });
+      return;
+    }
+
+    const startTop = window.scrollY;
+    const delta = targetTop - startTop;
+    const duration = Math.max(0, ${durationMs});
+    if (Math.abs(delta) <= 2 || duration <= 0) {
+      window.scrollTo({ top: targetTop, behavior: "auto" });
+      return;
+    }
+
+    const startTs = performance.now();
+    const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+    const tick = (now) => {
+      const progress = Math.min(1, (now - startTs) / duration);
+      const eased = easeInOutCubic(progress);
+      window.scrollTo({ top: startTop + delta * eased, behavior: "auto" });
+      if (progress < 1) window.requestAnimationFrame(tick);
+    };
+    window.requestAnimationFrame(tick);
   };
 
   const scheduleRun = (delay) => {
@@ -55,19 +77,11 @@ const script = `(() => {
 
   window.addEventListener("load", () => {
     scheduleRun(${delayMs});
-    scheduleRun(${delayMs} + 260);
   }, { once: true });
 
   window.addEventListener("pageshow", (event) => {
-    const delay = event.persisted ? 0 : ${delayMs};
-    scheduleRun(delay);
-    scheduleRun(delay + 260);
+    if (event.persisted) scheduleRun(0);
   });
-
-  if (document.readyState === "complete") {
-    scheduleRun(0);
-    scheduleRun(260);
-  }
 })();`;
 ---
 
