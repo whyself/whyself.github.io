@@ -20,19 +20,97 @@ const base = import.meta.env.BASE_URL;
       </button>
       <div class="hidden absolute right-0 md:right-[calc(100%+0.75rem)] top-[calc(100%+0.5rem)] md:top-1/2 md:-translate-y-1/2 w-[min(20rem,calc(100vw-2.5rem))] md:w-80 z-[130] opacity-0 pointer-events-none translate-x-2 transition-all duration-200 ease-out" id="header-search-panel">
         <div class="relative">
-          <input autocomplete="off" class="w-full bg-black/35 border border-white/30 text-white placeholder:text-white/70 px-3 py-2 text-sm backdrop-blur-sm focus:outline-none focus:border-white focus:ring-0 focus:ring-transparent" id="header-search-input" placeholder="Search articles..." type="text"/>
+          <input autocomplete="off" class="w-full bg-zinc-950/35 border border-white/30 text-white placeholder:text-white/70 px-3 py-2 text-sm backdrop-blur-sm focus:outline-none focus:border-white focus:ring-0 focus:ring-transparent" id="header-search-input" placeholder="Search articles..." type="text"/>
         </div>
         <div class="absolute top-full mt-2 left-0 w-full bg-white text-zinc-900 border border-zinc-200 shadow-lg max-h-80 overflow-y-auto opacity-0 pointer-events-none -translate-y-2 transition-all duration-200 ease-out" id="header-search-results"></div>
       </div>
     </div>
-    <button aria-label="Toggle theme" class="transition-opacity hover:opacity-70 flex items-center" id="header-theme-toggle" type="button">
-      <Icon class="w-6 h-6 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.55)]" name="dark_mode" />
+    <button aria-label="Switch to dark mode" aria-checked="false" class="theme-switch" id="header-theme-toggle" role="switch" type="button">
+      <span class="theme-switch__check">
+        <span class="theme-switch__icon">
+          <svg aria-hidden="true" class="theme-switch__sun" fill="none" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"></circle>
+            <path d="M12 2.5v2.3M12 19.2v2.3M4.8 4.8l1.6 1.6M17.6 17.6l1.6 1.6M2.5 12h2.3M19.2 12h2.3M4.8 19.2l1.6-1.6M17.6 6.4l1.6-1.6" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"></path>
+          </svg>
+          <svg aria-hidden="true" class="theme-switch__moon" fill="none" viewBox="0 0 24 24">
+            <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+          </svg>
+        </span>
+      </span>
     </button>
     <a class="transition-opacity hover:opacity-70 flex items-center" href={`${base}rss.xml`} rel="noopener noreferrer" target="_blank" title="RSS Feed">
       <Icon class="w-6 h-6 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.55)]" name="rss_feed" />
     </a>
   </div>
 </header>
+
+<style is:global>
+  .theme-switch {
+    position: relative;
+    display: block;
+    flex-shrink: 0;
+    width: 42px;
+    height: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    border-radius: 999px;
+    background: rgba(26, 26, 26, 0.42);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(10px);
+    transition: border-color 0.25s ease, background-color 0.25s ease, opacity 0.2s ease;
+  }
+  .theme-switch:hover {
+    opacity: 0.78;
+    border-color: rgba(255, 255, 255, 0.72);
+  }
+  .theme-switch__check {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: rgba(248, 250, 252, 0.96);
+    color: #3f3f3f;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
+    transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+  }
+  .theme-switch__icon {
+    position: relative;
+    display: block;
+    width: 18px;
+    height: 18px;
+    overflow: hidden;
+    border-radius: 999px;
+  }
+  .theme-switch__icon svg {
+    position: absolute;
+    inset: 3px;
+    width: 12px;
+    height: 12px;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .theme-switch__moon {
+    opacity: 0;
+    transform: rotate(-20deg) scale(0.82);
+  }
+  .dark .theme-switch {
+    border-color: rgba(84, 84, 84, 0.72);
+    background: rgba(47, 47, 47, 0.88);
+  }
+  .dark .theme-switch__check {
+    transform: translateX(18px);
+    background: #1a1a1a;
+    color: rgba(255, 255, 255, 0.87);
+  }
+  .dark .theme-switch__sun {
+    opacity: 0;
+    transform: rotate(20deg) scale(0.82);
+  }
+  .dark .theme-switch__moon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+</style>
 
 <script is:inline>
   (() => {
@@ -44,34 +122,62 @@ const base = import.meta.env.BASE_URL;
     const headerThemeToggle = document.getElementById("header-theme-toggle");
     if (!topActionsRoot || !headerSearchToggle || !headerSearchPanel || !headerSearchInput || !headerSearchResults) return;
 
-    const iconMarkup = {
-      dark_mode: '<svg aria-hidden="true" class="w-6 h-6 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.55)]" fill="none" viewBox="0 0 24 24"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg>',
-      light_mode: '<svg aria-hidden="true" class="w-6 h-6 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.55)]" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"></circle><path d="M12 2.5v2.3M12 19.2v2.3M4.8 4.8l1.6 1.6M17.6 17.6l1.6 1.6M2.5 12h2.3M19.2 12h2.3M4.8 19.2l1.6-1.6M17.6 6.4l1.6-1.6" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"></path></svg>',
-    };
-
     const applyTheme = (theme) => {
       const root = document.documentElement;
       root.classList.remove("light", "dark");
       root.classList.add(theme);
       root.dataset.theme = theme;
       if (headerThemeToggle) {
-        headerThemeToggle.innerHTML = theme === "dark" ? iconMarkup.light_mode : iconMarkup.dark_mode;
         headerThemeToggle.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+        headerThemeToggle.setAttribute("aria-checked", theme === "dark" ? "true" : "false");
       }
+      document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#1a1a1a" : "#ffffff");
+      document.querySelector('meta[name="msapplication-TileColor"]')?.setAttribute("content", theme === "dark" ? "#1a1a1a" : "#ffffff");
       document.dispatchEvent(new Event("themechange"));
     };
 
     const getCurrentTheme = () => (document.documentElement.classList.contains("dark") ? "dark" : "light");
     applyTheme(getCurrentTheme());
 
-    headerThemeToggle?.addEventListener("click", () => {
-      const nextTheme = getCurrentTheme() === "dark" ? "light" : "dark";
-      applyTheme(nextTheme);
-      try {
-        localStorage.setItem("theme", nextTheme);
-      } catch {
-        // ignore storage failures (private mode / disabled storage)
+    const animateThemeChange = (nextTheme, event) => {
+      const persistTheme = () => {
+        try {
+          localStorage.setItem("theme", nextTheme);
+        } catch {
+          // ignore storage failures (private mode / disabled storage)
+        }
+      };
+
+      if (!document.startViewTransition) {
+        applyTheme(nextTheme);
+        persistTheme();
+        return;
       }
+
+      const x = event?.clientX ?? window.innerWidth - 48;
+      const y = event?.clientY ?? 48;
+      const endRadius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+      const transition = document.startViewTransition(() => applyTheme(nextTheme));
+      transition.ready
+        .then(() => {
+          document.documentElement.animate(
+            {
+              clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`],
+            },
+            {
+              duration: 520,
+              easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+              pseudoElement: "::view-transition-new(root)",
+            }
+          );
+        })
+        .catch(() => {});
+      transition.finished.finally(persistTheme);
+    };
+
+    headerThemeToggle?.addEventListener("click", (event) => {
+      const nextTheme = getCurrentTheme() === "dark" ? "light" : "dark";
+      animateThemeChange(nextTheme, event);
     });
 
     const MIN_SEARCH_CHARS = 1;

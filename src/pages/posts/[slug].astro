@@ -463,37 +463,37 @@ const articleJsonLd = {
     transition: none;
   }
   html.dark body {
-    background: #0b0d10;
-    color: #e5edf7;
+    background: #1a1a1a;
+    color: rgba(255, 255, 255, 0.87);
   }
   html.dark .article-body {
     color: #d7e2ee;
   }
   html.dark .article-body :global(pre) {
-    border-color: #373e47;
+    border-color: rgba(84, 84, 84, 0.65);
     box-shadow: none;
   }
   html.dark .article-body :global(.code-block-shell) {
-    border-color: #373e47;
-    background: #22272e;
+    border-color: rgba(84, 84, 84, 0.65);
+    background: #242424;
   }
   html.dark .article-body :global(.code-block-head) {
-    background: #2d333b;
-    border-bottom-color: #373e47;
+    background: #2f2f2f;
+    border-bottom-color: rgba(84, 84, 84, 0.65);
   }
   html.dark .article-body :global(.code-block-lang) {
-    color: #768390;
+    color: rgba(235, 235, 235, 0.48);
   }
   html.dark .article-body :global(.code-block-copy) {
-    background: #373e47;
-    color: #adbac7;
-    border-color: #545d68;
+    background: #363636;
+    color: rgba(235, 235, 235, 0.68);
+    border-color: rgba(84, 84, 84, 0.78);
   }
   html.dark .article-body :global(.code-block-copy:hover) {
-    background: #444c56;
+    background: #3f3f3f;
   }
   html.dark .article-body :global(.post-media figcaption) {
-    color: #94a3b8;
+    color: rgba(235, 235, 235, 0.48);
   }
   html {
     scroll-behavior: smooth;
@@ -584,7 +584,7 @@ const articleJsonLd = {
           <Content />
         </div>
         {(previousPost || nextPost) && (
-          <nav class="mt-12 flex flex-col gap-3 border-t border-outline-variant/20 pt-6 dark:border-zinc-700/50">
+          <nav class="mt-12 flex flex-col gap-3 border-t border-outline-variant/20 pt-6">
             {previousPost ? (
               <a class="group inline-flex min-w-0 max-w-full items-center gap-1.5 text-sm font-headline text-on-surface-variant hover:text-primary transition-colors self-start" href={`${base}posts/${previousPost.slug}/`}>
                 <Icon class="w-[18px] h-[18px]" name="arrow_back" />
@@ -619,7 +619,7 @@ const articleJsonLd = {
               </nav>
             </div>
           )}
-          <div class="pt-8 border-t border-outline-variant/20 dark:border-zinc-700/40">
+          <div class="pt-8 border-t border-outline-variant/20">
             <h4 class="font-headline text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-4">Share</h4>
             <div class="flex gap-2">
               <button aria-label="Copy link" class="w-8 h-8 flex items-center justify-center bg-surface-container-high hover:bg-primary hover:text-white transition-all" data-share-copy-link type="button">

@@ -55,10 +55,10 @@ const {
 <body class="bg-surface text-on-surface selection:bg-primary-container selection:text-white">
   <TopActions searchItems={searchItems} />
   <HeroBanner base={base} title={heroTitle} />
-  <main class="max-w-screen-2xl mx-auto flex flex-col lg:flex-row min-h-screen lg:pt-12" data-content-start>
+  <main class="max-w-screen-2xl mx-auto flex flex-col lg:flex-row min-h-screen lg:py-12" data-content-start>
     <ProfileSidebar active={activeNav} />
     <section class="min-w-0 flex-1 lg:-ml-16 lg:pl-0 lg:pr-0 py-4 md:py-12 lg:py-0">
-      <article class="w-full mx-0 px-6 md:px-8 lg:pl-14 lg:pr-10 py-8 md:py-10 bg-surface-container-lowest dark:bg-zinc-900 border border-surface-container-high dark:border-zinc-700 rounded-sm">
+      <article class="w-full mx-0 px-6 md:px-8 lg:pl-14 lg:pr-10 py-8 md:py-10 bg-surface-container-lowest border border-surface-container-high rounded-sm">
         <h1 class="font-headline font-black uppercase text-sm tracking-[0.2em] text-outline">{sectionTitle}</h1>
         {subtitle && <p class="mt-4 text-lg text-on-surface-variant italic">{subtitle}</p>}
         <div class="mt-10 article-body">

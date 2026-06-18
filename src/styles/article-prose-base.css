@@ -118,8 +118,8 @@ html.dark .article-body a {
 }
 
 html.dark .article-body a:hover {
-  color: #ffffff;
-  text-decoration-color: #ffffff;
+  color: #f1f5f9;
+  text-decoration-color: #f1f5f9;
 }
 
 html.dark .article-body strong {
