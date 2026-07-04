@@ -78,8 +78,12 @@ const siteJsonLdString = JSON.stringify(siteJsonLd);
   }
 </script>
 <style is:inline>
-  html.fonts-loading .font-load-hidden {
+  .font-load-hidden {
     visibility: hidden;
+  }
+
+  html.fonts-ready .font-load-hidden {
+    visibility: visible;
   }
 </style>
 <title>{title}</title>
@@ -124,7 +128,7 @@ const siteJsonLdString = JSON.stringify(siteJsonLd);
       return;
     }
 
-    const fontTimeout = new Promise((resolve) => window.setTimeout(resolve, 3000));
+    const fontTimeout = new Promise((resolve) => window.setTimeout(resolve, 8000));
     const requiredFonts = Promise.all([
       document.fonts.load("italic 1.25rem Newsreader"),
       document.fonts.load("700 italic 1.25rem Newsreader"),
