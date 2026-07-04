@@ -97,7 +97,6 @@ const friend = {
       filter 180ms ease;
   }
 
-  .friend-avatar-link:hover,
   .friend-avatar-link:focus-visible,
   .friend-card.is-open .friend-avatar-link {
     transform: translateY(-0.35rem);
@@ -131,13 +130,24 @@ const friend = {
       transform 160ms ease;
   }
 
-  .friend-card:hover .friend-popover,
-  .friend-card:has(.friend-avatar-link:focus-visible) .friend-popover,
-  .friend-card:has(.friend-popover-link:focus-visible) .friend-popover,
   .friend-card.is-open .friend-popover {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .friend-card:hover .friend-avatar-link {
+      transform: translateY(-0.35rem);
+      box-shadow: 0 0.85rem 1.8rem rgba(15, 23, 42, 0.18);
+      filter: saturate(1.05);
+    }
+
+    .friend-card:hover .friend-popover {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
   }
 
   .friend-popover-link {
@@ -171,10 +181,15 @@ const friend = {
     box-shadow: 0 0 0 1px rgba(203, 213, 225, 0.12);
   }
 
-  html.dark .friend-avatar-link:hover,
   html.dark .friend-avatar-link:focus-visible,
   html.dark .friend-card.is-open .friend-avatar-link {
     box-shadow: 0 0.85rem 1.8rem rgba(0, 0, 0, 0.36);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    html.dark .friend-card:hover .friend-avatar-link {
+      box-shadow: 0 0.85rem 1.8rem rgba(0, 0, 0, 0.36);
+    }
   }
 
   html.dark .friend-popover-link {
@@ -200,11 +215,14 @@ const friend = {
       transform: translate(-0.25rem, -50%);
     }
 
-    .friend-card:hover .friend-popover,
-    .friend-card:has(.friend-avatar-link:focus-visible) .friend-popover,
-    .friend-card:has(.friend-popover-link:focus-visible) .friend-popover,
     .friend-card.is-open .friend-popover {
       transform: translate(0, -50%);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .friend-card:hover .friend-popover {
+        transform: translate(0, -50%);
+      }
     }
   }
 </style>
@@ -224,15 +242,12 @@ const friend = {
     const trigger = card.querySelector('[data-friend-trigger]');
     trigger?.addEventListener('click', (event) => {
       if (!isTouchLike()) return;
+      if (card.classList.contains('is-open')) return;
 
       event.preventDefault();
-      const shouldOpen = !card.classList.contains('is-open');
       closeFriendCards();
-
-      if (shouldOpen) {
-        card.classList.add('is-open');
-        trigger.setAttribute('aria-expanded', 'true');
-      }
+      card.classList.add('is-open');
+      trigger.setAttribute('aria-expanded', 'true');
     });
   });
 
