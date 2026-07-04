@@ -37,9 +37,10 @@ const navClass = (key: string) =>
       </div>
     </div>
   </div>
-  <nav class="flex flex-wrap items-center justify-center gap-x-5 gap-y-0 font-body italic text-lg leading-none lg:flex-col lg:items-start lg:justify-start lg:gap-0 lg:space-y-6 lg:text-xl">
+  <nav class="font-load-hidden flex flex-wrap items-center justify-center gap-x-5 gap-y-0 font-body italic text-lg leading-none lg:flex-col lg:items-start lg:justify-start lg:gap-0 lg:space-y-6 lg:text-xl">
     <a class={navClass('home')} href={base}><span>Home</span></a>
     <a class={navClass('bio')} href={`${base}bio/`}><span>Bio</span></a>
     <a class={navClass('about')} href={`${base}about/`}><span>About</span></a>
+    <a class={navClass('links')} href={`${base}links/`}><span>Links</span></a>
   </nav>
 </aside>

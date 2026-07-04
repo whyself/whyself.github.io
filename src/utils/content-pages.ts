@@ -1,7 +1,7 @@
 import { getCollection, render } from 'astro:content';
 import { buildSearchItems, getPublishedPosts, type SearchItem } from './posts';
 
-type ContentPageSlug = 'about' | 'bio';
+type ContentPageSlug = 'about' | 'bio' | 'links';
 
 interface ContentPageConfig {
   slug: ContentPageSlug;

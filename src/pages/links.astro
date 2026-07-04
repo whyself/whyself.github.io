@@ -1,0 +1,250 @@
+---
+import ContentInfoPageLayout from '../layouts/ContentInfoPageLayout.astro';
+import { buildContentPageData } from '../utils/content-pages';
+
+const base = import.meta.env.BASE_URL;
+const siteOrigin = Astro.site?.toString() ?? 'http://127.0.0.1:4321';
+const pageData = await buildContentPageData({
+  base,
+  siteOrigin,
+  config: {
+    slug: 'links',
+    seoTitle: 'Links | whyself',
+    fallbackDescription: 'Friend links and recommended personal sites.',
+  },
+});
+const Content = pageData.Content;
+const friend = {
+  name: '江畔絮语',
+  description: '一位文院学生思考的存档地',
+  href: 'https://water1i1y.org/',
+  avatar: `${base}images/links/dia.jpg`,
+};
+---
+
+<ContentInfoPageLayout
+  base={base}
+  searchItems={pageData.searchItems}
+  seoTitle={pageData.seoTitle}
+  seoDescription={pageData.seoDescription}
+  canonicalUrl={pageData.canonicalUrl}
+  ogImageUrl={pageData.ogImageUrl}
+  heroTitle="Links"
+  activeNav="links"
+  sectionTitle="MY FRIENDS"
+  subtitle={pageData.subtitle}
+>
+  <Content />
+  <div class="friend-wall" aria-label="Friend links">
+    <div class="friend-card" data-friend-card>
+      <a
+        aria-controls="friend-waterlily"
+        aria-expanded="false"
+        aria-label={`Open ${friend.name}`}
+        class="friend-avatar-link"
+        data-friend-trigger
+        href={friend.href}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <img
+          alt={friend.name}
+          class="friend-avatar"
+          decoding="async"
+          height="96"
+          loading="lazy"
+          src={friend.avatar}
+          width="96"
+        />
+      </a>
+      <div class="friend-popover" id="friend-waterlily" role="status">
+        <a class="friend-popover-link" href={friend.href} rel="noopener noreferrer" target="_blank">
+          <span class="friend-name font-headline font-black uppercase text-sm tracking-widest text-on-surface">{friend.name}</span>
+          <span class="friend-description font-body italic text-lg text-on-surface-variant">{friend.description}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</ContentInfoPageLayout>
+
+<style>
+  .friend-wall {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    align-items: flex-start;
+    margin-top: 0.25rem;
+    padding-bottom: 4.5rem;
+  }
+
+  .friend-card {
+    position: relative;
+    width: 6rem;
+    height: 6rem;
+  }
+
+  .friend-avatar-link {
+    display: block;
+    width: 6rem;
+    height: 6rem;
+    overflow: hidden;
+    border-radius: 0.125rem;
+    background: var(--color-surface-container-highest, #e5e7eb);
+    box-shadow: 0 0 0 1px rgba(17, 24, 39, 0.08);
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease,
+      filter 180ms ease;
+  }
+
+  .friend-avatar-link:hover,
+  .friend-avatar-link:focus-visible,
+  .friend-card.is-open .friend-avatar-link {
+    transform: translateY(-0.35rem);
+    box-shadow: 0 0.85rem 1.8rem rgba(15, 23, 42, 0.18);
+    filter: saturate(1.05);
+  }
+
+  .friend-avatar-link:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+  }
+
+  .friend-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .friend-popover {
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    top: calc(100% + 0.75rem);
+    min-width: min(18rem, calc(100vw - 3rem));
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-0.25rem);
+    transition:
+      opacity 160ms ease,
+      transform 160ms ease;
+  }
+
+  .friend-card:hover .friend-popover,
+  .friend-card:has(.friend-avatar-link:focus-visible) .friend-popover,
+  .friend-card:has(.friend-popover-link:focus-visible) .friend-popover,
+  .friend-card.is-open .friend-popover {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .friend-popover-link {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    border-radius: 0.125rem;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 1rem 2rem rgba(15, 23, 42, 0.14);
+    text-decoration: none;
+    backdrop-filter: blur(10px);
+  }
+
+  .friend-popover-link:hover .friend-name,
+  .friend-popover-link:focus-visible .friend-name {
+    color: #111827;
+  }
+
+  .friend-name {
+    line-height: 1.25;
+  }
+
+  .friend-description {
+    line-height: 1.45;
+  }
+
+  html.dark .friend-avatar-link {
+    box-shadow: 0 0 0 1px rgba(203, 213, 225, 0.12);
+  }
+
+  html.dark .friend-avatar-link:hover,
+  html.dark .friend-avatar-link:focus-visible,
+  html.dark .friend-card.is-open .friend-avatar-link {
+    box-shadow: 0 0.85rem 1.8rem rgba(0, 0, 0, 0.36);
+  }
+
+  html.dark .friend-popover-link {
+    border-color: rgba(100, 116, 139, 0.55);
+    background: rgba(31, 41, 55, 0.96);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3);
+  }
+
+  html.dark .friend-popover-link:hover .friend-name,
+  html.dark .friend-popover-link:focus-visible .friend-name,
+  html.dark .friend-name {
+    color: #f3f7fd;
+  }
+
+  html.dark .friend-description {
+    color: #b5c3d4;
+  }
+
+  @media (min-width: 48rem) {
+    .friend-popover {
+      left: calc(100% + 0.9rem);
+      top: 50%;
+      transform: translate(-0.25rem, -50%);
+    }
+
+    .friend-card:hover .friend-popover,
+    .friend-card:has(.friend-avatar-link:focus-visible) .friend-popover,
+    .friend-card:has(.friend-popover-link:focus-visible) .friend-popover,
+    .friend-card.is-open .friend-popover {
+      transform: translate(0, -50%);
+    }
+  }
+</style>
+
+<script>
+  const friendCards = Array.from(document.querySelectorAll('[data-friend-card]'));
+  const isTouchLike = () => window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
+  const closeFriendCards = () => {
+    friendCards.forEach((card) => {
+      card.classList.remove('is-open');
+      card.querySelector('[data-friend-trigger]')?.setAttribute('aria-expanded', 'false');
+    });
+  };
+
+  friendCards.forEach((card) => {
+    const trigger = card.querySelector('[data-friend-trigger]');
+    trigger?.addEventListener('click', (event) => {
+      if (!isTouchLike()) return;
+
+      event.preventDefault();
+      const shouldOpen = !card.classList.contains('is-open');
+      closeFriendCards();
+
+      if (shouldOpen) {
+        card.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!isTouchLike()) return;
+    const target = event.target;
+    if (!(target instanceof Node)) return;
+    if (friendCards.some((card) => card.contains(target))) return;
+    closeFriendCards();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeFriendCards();
+  });
+</script>
