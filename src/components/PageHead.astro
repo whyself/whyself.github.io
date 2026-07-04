@@ -33,6 +33,7 @@ const appleTouchIconUrl = `${base}apple-touch-icon.png`;
 const manifestUrl = `${base}site.webmanifest`;
 const googleFontsUrl =
   'https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&family=Newsreader:ital,wght@0,400;0,700;1,400&family=Noto+Serif+SC:wght@400;500;700&display=swap';
+const segoeScriptFontUrl = `${base}fonts/segoe-script.ttf`;
 
 let siteOrigin = 'https://blog.whyself.cn';
 try {
@@ -114,6 +115,7 @@ const siteJsonLdString = JSON.stringify(siteJsonLd);
 <link href="https://fonts.googleapis.com" rel="preconnect" />
 <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
 <link as="style" href={googleFontsUrl} rel="preload" />
+<link as="font" crossorigin href={segoeScriptFontUrl} rel="preload" type="font/ttf" />
 <link href={googleFontsUrl} rel="stylesheet" />
 <script is:inline>
   (() => {
@@ -132,6 +134,7 @@ const siteJsonLdString = JSON.stringify(siteJsonLd);
     const requiredFonts = Promise.all([
       document.fonts.load("italic 1.25rem Newsreader"),
       document.fonts.load("700 italic 1.25rem Newsreader"),
+      document.fonts.load("4rem 'Segoe Script'"),
     ]);
 
     Promise.race([requiredFonts, fontTimeout]).then(showFontSensitiveText, showFontSensitiveText);
