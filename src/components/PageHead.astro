@@ -76,16 +76,6 @@ const siteJsonLdString = JSON.stringify(siteJsonLd);
   if ("scrollRestoration" in history) {
     history.scrollRestoration = "manual";
   }
-
-  if ("fonts" in document) {
-    document.fonts.ready.then(() => {
-      document.documentElement.classList.remove("fonts-loading");
-      document.documentElement.classList.add("fonts-ready");
-    });
-  } else {
-    document.documentElement.classList.remove("fonts-loading");
-    document.documentElement.classList.add("fonts-ready");
-  }
 </script>
 <style is:inline>
   html.fonts-loading .font-load-hidden {
@@ -121,4 +111,26 @@ const siteJsonLdString = JSON.stringify(siteJsonLd);
 <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
 <link as="style" href={googleFontsUrl} rel="preload" />
 <link href={googleFontsUrl} rel="stylesheet" />
+<script is:inline>
+  (() => {
+    const root = document.documentElement;
+    const showFontSensitiveText = () => {
+      root.classList.remove("fonts-loading");
+      root.classList.add("fonts-ready");
+    };
+
+    if (!("fonts" in document)) {
+      showFontSensitiveText();
+      return;
+    }
+
+    const fontTimeout = new Promise((resolve) => window.setTimeout(resolve, 3000));
+    const requiredFonts = Promise.all([
+      document.fonts.load("italic 1.25rem Newsreader"),
+      document.fonts.load("700 italic 1.25rem Newsreader"),
+    ]);
+
+    Promise.race([requiredFonts, fontTimeout]).then(showFontSensitiveText, showFontSensitiveText);
+  })();
+</script>
 <ThemeConfig />
