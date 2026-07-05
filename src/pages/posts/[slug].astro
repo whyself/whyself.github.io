@@ -225,9 +225,10 @@ const articleJsonLd = {
     word-break: break-word;
   }
   .article-body :global(.code-block-shell) {
+    --code-block-bg: #ffffff;
     border: 1px solid #e5e7eb;
     border-radius: 0.7rem;
-    background: #ffffff;
+    background: var(--code-block-bg);
     overflow-x: auto;
     overflow-y: hidden;
     margin: 1.5rem 0;
@@ -242,7 +243,7 @@ const articleJsonLd = {
     align-items: center;
     justify-content: space-between;
     padding: 0 0.75rem 0 0.85rem;
-    background: #ffffff;
+    background: var(--code-block-bg);
     border-bottom: 1px solid #e5e7eb;
   }
   .article-body :global(.code-block-lang) {
@@ -273,7 +274,7 @@ const articleJsonLd = {
     border: none;
     border-radius: 0;
     box-shadow: none;
-    background: #ffffff;
+    background: var(--code-block-bg);
     padding: 0.9rem 1rem 1rem;
     max-width: 100%;
     overflow-x: auto !important;
@@ -474,26 +475,27 @@ const articleJsonLd = {
     box-shadow: none;
   }
   html.dark .article-body :global(.code-block-shell) {
-    border-color: rgba(84, 84, 84, 0.65);
-    background: #22272e;
+    --code-block-bg: #22272e;
+    border-color: #22272e;
+    background: var(--code-block-bg);
   }
   html.dark .article-body :global(.code-block-head) {
-    background: #22272e;
-    border-bottom-color: rgba(84, 84, 84, 0.65);
+    background: var(--code-block-bg);
+    border-bottom-color: transparent;
   }
   html.dark .article-body :global(.code-block-shell pre) {
-    background: #22272e;
+    background: var(--code-block-bg);
   }
   html.dark .article-body :global(.code-block-lang) {
     color: rgba(235, 235, 235, 0.48);
   }
   html.dark .article-body :global(.code-block-copy) {
-    background: #363636;
+    background: var(--code-block-bg);
     color: rgba(235, 235, 235, 0.68);
-    border-color: rgba(84, 84, 84, 0.78);
+    border-color: rgba(235, 235, 235, 0.2);
   }
   html.dark .article-body :global(.code-block-copy:hover) {
-    background: #3f3f3f;
+    background: rgba(235, 235, 235, 0.08);
   }
   html.dark .article-body :global(.post-media figcaption) {
     color: rgba(235, 235, 235, 0.48);
