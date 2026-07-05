@@ -227,7 +227,7 @@ const articleJsonLd = {
   .article-body :global(.code-block-shell) {
     border: 1px solid #e5e7eb;
     border-radius: 0.7rem;
-    background: #f8f9fb;
+    background: #ffffff;
     overflow-x: auto;
     overflow-y: hidden;
     margin: 1.5rem 0;
@@ -242,7 +242,7 @@ const articleJsonLd = {
     align-items: center;
     justify-content: space-between;
     padding: 0 0.75rem 0 0.85rem;
-    background: #f2f4f7;
+    background: #ffffff;
     border-bottom: 1px solid #e5e7eb;
   }
   .article-body :global(.code-block-lang) {
@@ -273,7 +273,7 @@ const articleJsonLd = {
     border: none;
     border-radius: 0;
     box-shadow: none;
-    background: #f8f9fb;
+    background: #ffffff;
     padding: 0.9rem 1rem 1rem;
     max-width: 100%;
     overflow-x: auto !important;
@@ -475,11 +475,14 @@ const articleJsonLd = {
   }
   html.dark .article-body :global(.code-block-shell) {
     border-color: rgba(84, 84, 84, 0.65);
-    background: #242424;
+    background: #22272e;
   }
   html.dark .article-body :global(.code-block-head) {
-    background: #2f2f2f;
+    background: #22272e;
     border-bottom-color: rgba(84, 84, 84, 0.65);
+  }
+  html.dark .article-body :global(.code-block-shell pre) {
+    background: #22272e;
   }
   html.dark .article-body :global(.code-block-lang) {
     color: rgba(235, 235, 235, 0.48);
